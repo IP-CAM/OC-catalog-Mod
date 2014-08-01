@@ -1,0 +1,4 @@
+modo-catalogo
+=============
+
+Módulo Catálogo
