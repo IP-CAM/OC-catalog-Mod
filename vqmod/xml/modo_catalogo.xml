@@ -1,0 +1,706 @@
+<modification>
+	<id>Modo Catálogo para OpenCart 1.5.3.1</id>
+	<version>1.0.0</version>
+	<vqmver>2.1.5</vqmver>
+    <author>www.opencartbrasil.com.br</author>
+	
+	<file name="admin/controller/setting/setting.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->data['entry_google_analytics'] = $this->language->get('entry_google_analytics');]]></search>
+			<add><![CDATA[
+		$this->data['entry_catalog_mode'] = $this->language->get('entry_catalog_mode');]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$this->data['config_customer_price'] = $this->config->get('config_customer_price');]]></search>
+			<add><![CDATA[
+		if (isset($this->request->post['config_catalog_mode'])) {
+			$this->data['config_catalog_mode'] = $this->request->post['config_catalog_mode'];
+		} else {
+			$this->data['config_catalog_mode'] = $this->config->get('config_catalog_mode');			
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/controller/setting/store.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->data['entry_use_ssl'] = $this->language->get('entry_use_ssl');]]></search>
+			<add><![CDATA[
+		$this->data['entry_catalog_mode'] = $this->language->get('entry_catalog_mode');]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$this->data['config_customer_price'] = '';]]></search>
+			<add><![CDATA[
+		if (isset($this->request->post['config_catalog_mode'])) {
+			$this->data['config_catalog_mode'] = $this->request->post['config_catalog_mode'];
+		} elseif (isset($store_info['config_catalog_mode'])) {
+			$this->data['config_catalog_mode'] = $store_info['config_catalog_mode'];
+		} else {
+			$this->data['config_catalog_mode'] = '';
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/language/english/setting/setting.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[?>]]></search>
+			<add><![CDATA[
+$_['entry_catalog_mode']        = 'Catalog Mode:<br /><span class="help">Disables Add To Cart, Checkout, Account, Reward Points, and other sections of the cart related to placing online sales</span>';]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/language/english/setting/store.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[?>]]></search>
+			<add><![CDATA[
+$_['entry_catalog_mode']        = 'Catalog Mode:<br /><span class="help">Disables Add To Cart, Checkout, Account, Reward Points, and other sections of the cart related to placing online sales</span>';]]></add>
+		</operation>
+	</file>
+
+	<file name="admin/language/portuguese-br/setting/setting.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[?>]]></search>
+			<add><![CDATA[
+$_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desabilita o Carrinho, Finalizar Compra, Minha Conta, Pontos de Fidelidade, Lista de Desejos, e outras áreas relacionadas com a compra.</span>';]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/language/portuguese-br/setting/store.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[?>]]></search>
+			<add><![CDATA[
+$_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desabilita o Carrinho, Finalizar Compra, Minha Conta, Pontos de Fidelidade, Lista de Desejos, e outras áreas relacionadas com a compra.</span>';]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/view/template/setting/setting.tpl">
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<span class="error"><?php echo $error_admin_limit; ?></span>]]></search>
+			<add><![CDATA[<tr>
+              <td><?php echo $entry_catalog_mode; ?></td>
+              <td><?php if ($config_catalog_mode) { ?>
+                <input type="radio" name="config_catalog_mode" value="1" checked="checked" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="config_catalog_mode" value="0" />
+                <?php echo $text_no; ?>
+                <?php } else { ?>
+                <input type="radio" name="config_catalog_mode" value="1" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="config_catalog_mode" value="0" checked="checked" />
+                <?php echo $text_no; ?>
+                <?php } ?></td>
+            </tr>
+            ]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/view/template/setting/store_form.tpl">
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<span class="error"><?php echo $error_catalog_limit; ?></span>]]></search>
+			<add><![CDATA[<tr>
+              <td><?php echo $entry_catalog_mode; ?></td>
+              <td><?php if ($config_catalog_mode) { ?>
+                <input type="radio" name="config_catalog_mode" value="1" checked="checked" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="config_catalog_mode" value="0" />
+                <?php echo $text_no; ?>
+                <?php } else { ?>
+                <input type="radio" name="config_catalog_mode" value="1" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="config_catalog_mode" value="0" checked="checked" />
+                <?php echo $text_no; ?>
+                <?php } ?></td>
+            </tr>
+            ]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/account/forgotten.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[public function index() {]]></search>
+			<add><![CDATA[
+		if ($this->config->get('config_catalog_mode')) {
+			$this->redirect($this->url->link('common/home'));
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/account/login.php">
+		<operation error="skip">
+			<search position="after" offset="3"><![CDATA[if ($customer_info && $this->customer->login($customer_info['email'], '', true)) {]]></search>
+			<add><![CDATA[
+		if ($this->config->get('config_catalog_mode')) {
+			$this->redirect($this->url->link('common/home'));
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/account/register.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[public function index() {]]></search>
+			<add><![CDATA[
+		if ($this->config->get('config_catalog_mode')) {
+			$this->redirect($this->url->link('common/home'));
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/account/wishlist.php">
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
+			<add><![CDATA[
+				if ($this->config->get('config_catalog_mode')) {
+					$this->data['catalog_mode'] = true;
+				} else {
+					$this->data['catalog_mode'] = false;
+				}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/affiliate/forgotten.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[public function index() {]]></search>
+			<add><![CDATA[
+		if ($this->config->get('config_catalog_mode')) {
+			$this->redirect($this->url->link('common/home'));
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/affiliate/login.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[public function index() {]]></search>
+			<add><![CDATA[
+		if ($this->config->get('config_catalog_mode')) {
+			$this->redirect($this->url->link('common/home'));
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/checkout/cart.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[public function index() {]]></search>
+			<add><![CDATA[
+		if ($this->config->get('config_catalog_mode')) {
+			$this->redirect($this->url->link('common/home'));
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/common/footer.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));]]></search>
+			<add><![CDATA[
+		if ($this->config->get('config_catalog_mode')) {
+			$this->data['catalog_mode'] = true;
+		} else {
+			$this->data['catalog_mode'] = false;
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/common/header.php">
+		<operation error="skip">
+			<search position="before" offset="3"><![CDATA[$this->data['categories'] = array();]]></search>
+			<add><![CDATA[
+		if ($this->config->get('config_catalog_mode')) {
+			$this->data['catalog_mode'] = true;
+		} else {
+			$this->data['catalog_mode'] = false;
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/information/sitemap.php">
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$this->data['categories'] = array();]]></search>
+			<add><![CDATA[
+			if ($this->config->get('config_catalog_mode')) {
+				$this->data['catalog_mode'] = true;
+			} else {
+				$this->data['catalog_mode'] = false;
+			}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/module/bestseller.php">
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
+			<add><![CDATA[
+			if ($this->config->get('config_catalog_mode')) {
+				$this->data['catalog_mode'] = true;
+			} else {
+				$this->data['catalog_mode'] = false;
+			}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/module/featured.php">
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
+			<add><![CDATA[
+			if ($this->config->get('config_catalog_mode')) {
+				$this->data['catalog_mode'] = true;
+			} else {
+				$this->data['catalog_mode'] = false;
+			}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/module/latest.php">
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
+			<add><![CDATA[
+			if ($this->config->get('config_catalog_mode')) {
+				$this->data['catalog_mode'] = true;
+			} else {
+				$this->data['catalog_mode'] = false;
+			}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/module/special.php">
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
+			<add><![CDATA[
+			if ($this->config->get('config_catalog_mode')) {
+				$this->data['catalog_mode'] = true;
+			} else {
+				$this->data['catalog_mode'] = false;
+			}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/product/category.php">
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
+			<add><![CDATA[
+			if ($this->config->get('config_catalog_mode')) {
+				$this->data['catalog_mode'] = true;
+			} else {
+				$this->data['catalog_mode'] = false;
+			}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/product/compare.php">
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
+			<add><![CDATA[
+			if ($this->config->get('config_catalog_mode')) {
+				$this->data['catalog_mode'] = true;
+			} else {
+				$this->data['catalog_mode'] = false;
+			}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/product/manufacturer.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[$this->data['products'] = array();]]></search>
+			<add><![CDATA[
+			if ($this->config->get('config_catalog_mode')) {
+				$this->data['catalog_mode'] = true;
+			} else {
+				$this->data['catalog_mode'] = false;
+			}]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="5"><![CDATA[$this->data['products'][] = array(]]></search>
+			<add><![CDATA[
+					'catalog_mode' => $this->data['catalog_mode'],]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/product/product.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->data['text_tags'] = $this->language->get('text_tags');]]></search>
+			<add><![CDATA[			$this->data['text_choose_one'] = $this->language->get('text_choose_one');
+			$this->data['text_choose_multi'] = $this->language->get('text_choose_multi');]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$this->data['price'] = false;]]></search>
+			<add><![CDATA[
+			if ($this->config->get('config_catalog_mode')) {
+				$this->data['catalog_mode'] = true;
+			} else {
+				$this->data['catalog_mode'] = false;
+			}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/product/search.php">
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA['children'    => $level_2_data]]></search>
+			<add><![CDATA[
+		if ($this->config->get('config_catalog_mode')) {
+			$this->data['catalog_mode'] = true;
+		} else {
+			$this->data['catalog_mode'] = false;
+		}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/product/special.php">
+		<operation error="skip">
+			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
+			<add><![CDATA[
+			if ($this->config->get('config_catalog_mode')) {
+				$this->data['catalog_mode'] = true;
+			} else {
+				$this->data['catalog_mode'] = false;
+			}]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/common/footer.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $return; ?>"><?php echo $text_return; ?></a></li>]]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?><li><a href="<?php echo $return; ?>"><?php echo $text_return; ?></a></li><?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $voucher; ?>"><?php echo $text_voucher; ?></a></li>]]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?><li><a href="<?php echo $voucher; ?>"><?php echo $text_voucher; ?></a></li><?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $affiliate; ?>"><?php echo $text_affiliate; ?></a></li>]]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?><li><a href="<?php echo $affiliate; ?>"><?php echo $text_affiliate; ?></a></li><?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<li><a href="<?php echo $special; ?>"><?php echo $text_special; ?></a></li>]]></search>
+			<add><![CDATA[  <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<li><a href="<?php echo $newsletter; ?>"><?php echo $text_newsletter; ?></a></li>]]></search>
+			<add><![CDATA[  <?php } ?>]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/common/header.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[<?php echo $cart; ?>]]></search>
+			<add><![CDATA[  <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<?php echo $cart; ?>]]></search>
+			<add><![CDATA[    <?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<div id="welcome">]]></search>
+			<add><![CDATA[  <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php echo $text_logged; ?>]]></search>
+			<add><![CDATA[    <?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="repplace"><![CDATA[  <div class="links"><a href="<?php echo $home; ?>"><?php echo $text_home; ?></a><a href="<?php echo $wishlist; ?>" id="wishlist-total"><?php echo $text_wishlist; ?></a><a href="<?php echo $account; ?>"><?php echo $text_account; ?></a><a href="<?php echo $shopping_cart; ?>"><?php echo $text_shopping_cart; ?></a><a href="<?php echo $checkout; ?>"><?php echo $text_checkout; ?></a></div>
+]]></search>
+			<add><![CDATA[
+<?php if (!$catalog_mode) { ?>
+  <div class="links"><a href="<?php echo $home; ?>"><?php echo $text_home; ?></a><a href="<?php echo $wishlist; ?>" id="wishlist-total"><?php echo $text_wishlist; ?></a><a href="<?php echo $account; ?>"><?php echo $text_account; ?></a><a href="<?php echo $shopping_cart; ?>"><?php echo $text_shopping_cart; ?></a><a href="<?php echo $checkout; ?>"><?php echo $text_checkout; ?></a></div>
+<?php } ?>
+			]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/information/sitemap.tpl">
+		<operation error="skip">
+			<search position="after"><![CDATA[<li><a href="<?php echo $special; ?>"><?php echo $text_special; ?></a></li>]]></search>
+			<add><![CDATA[        <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<li><a href="<?php echo $checkout; ?>"><?php echo $text_checkout; ?></a></li>]]></search>
+			<add><![CDATA[        <?php } ?>]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/module/bestseller.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[<div class="cart"><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></div>]]></search>
+			<add><![CDATA[
+        <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div class="cart"><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></div>]]></search>
+			<add><![CDATA[
+      <?php } ?>]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/module/featured.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[<div class="cart"><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></div>]]></search>
+			<add><![CDATA[
+        <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div class="cart"><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></div>]]></search>
+			<add><![CDATA[
+      <?php } ?>]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/module/latest.tpl">
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
+			<add><![CDATA[
+        <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div class="cart"><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></div>]]></search>
+			<add><![CDATA[
+      <?php } ?>]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/module/special.tpl">
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
+			<add><![CDATA[
+        <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div class="cart"><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></div>]]></search>
+			<add><![CDATA[
+      <?php } ?>]]></add>
+		</operation>
+	</file>
+
+	<file name="catalog/view/theme/*/template/product/category.tpl">
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
+			<add><![CDATA[	  <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div class="wishlist"><a onclick="addToWishList]]></search>
+			<add><![CDATA[      <?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '  <div class="cart">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '  <div class="cart">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '  <div class="cart">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '  <div class="wishlist">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '  <div class="wishlist">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '  <div class="wishlist">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '<div class="cart">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '<div class="cart">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '<div class="cart">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '<div class="wishlist">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '<div class="wishlist">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '<div class="wishlist">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/product/compare.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></td>]]></search>
+			<add><![CDATA[    <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<td><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></td>]]></search>
+			<add><![CDATA[    <?php } ?>]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/product/manufacturer_info.tpl">
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
+			<add><![CDATA[      <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div class="wishlist"><a onclick="addToWishList]]></search>
+			<add><![CDATA[      <?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '  <div class="cart">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '  <div class="cart">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '  <div class="cart">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '  <div class="wishlist">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '  <div class="wishlist">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '  <div class="wishlist">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '<div class="cart">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '<div class="cart">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '<div class="cart">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '<div class="wishlist">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '<div class="wishlist">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '<div class="wishlist">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/product/search.tpl">
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
+			<add><![CDATA[      <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div class="wishlist"><a onclick="addToWishList]]></search>
+			<add><![CDATA[      <?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '  <div class="cart">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '  <div class="cart">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '  <div class="cart">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '  <div class="wishlist">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '  <div class="wishlist">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '  <div class="wishlist">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '<div class="cart">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '<div class="cart">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '<div class="cart">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '<div class="wishlist">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '<div class="wishlist">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '<div class="wishlist">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/product/special.tpl">
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
+			<add><![CDATA[      <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div class="wishlist"><a onclick="addToWishList]]></search>
+			<add><![CDATA[      <?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '  <div class="cart">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '  <div class="cart">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '  <div class="cart">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '  <div class="wishlist">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '  <div class="wishlist">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '  <div class="wishlist">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '<div class="cart">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '<div class="cart">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '<div class="cart">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[html += '<div class="wishlist">']]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>html += '<div class="wishlist">']]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[html += '<div class="wishlist">']]></search>
+			<add><![CDATA[			<?php } ?>;]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/product/product.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<span><?php echo $text_reward; ?></span> <?php echo $reward; ?><br />]]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?><span><?php echo $text_reward; ?></span> <?php echo $reward; ?><br /><?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<?php if ($points) { ?>]]></search>
+			<add><![CDATA[<?php if ($points && !$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<div><span>&nbsp;&nbsp;&nbsp;<?php echo $text_or; ?>&nbsp;&nbsp;&nbsp;</span></div>]]></search>
+			<add><![CDATA[<?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div><a onclick="addToWishList('<?php echo $product_id; ?>');"><?php echo $button_wishlist; ?></a><br />]]></search>
+			<add><![CDATA[      <?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<div class="options">]]></search>
+			<add><![CDATA[        <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<div class="cart">]]></search>
+			<add><![CDATA[      <?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<div><?php echo $text_qty; ?>]]></search>
+			<add><![CDATA[      <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div class="minimum"><?php echo $text_minimum; ?></div>]]></search>
+			<add><![CDATA[        <?php } else { ?>
+        <div><a onclick="addToWishList('<?php echo $product_id; ?>');"><?php echo $button_wishlist; ?></a></div>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before" index="1"><![CDATA[<?php if ($review_status) { ?>]]></search>
+			<add><![CDATA[      <?php } else { ?>
+      <div class="compare"><a onclick="addToCompare('<?php echo $product_id; ?>');"><?php echo $button_compare; ?></a></div><br />
+      <?php } ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" index="2"><![CDATA[<span><?php echo $button_cart; ?></span></a></div>]]></search>
+			<add><![CDATA[<span><?php echo $button_cart; ?></span></a>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<a onclick="addToCart('<?php echo $product['product_id']; ?>');"]]></search>
+			<add><![CDATA[        <?php if (!$catalog_mode) { ?>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<a onclick="addToCart('<?php echo $product['product_id']; ?>');"]]></search>
+			<add><![CDATA[        <?php } ?>
+      </div>]]></add>
+		</operation>
+	</file>
+</modification>
