@@ -16,7 +16,7 @@
 
 ### Instruções
 
- 1. Envei os arquivos do módulo para o diretório raiz da sua loja.
+ 1. Envie os arquivos do módulo para o diretório raiz da sua loja.
  2. Acesse a administração da sua loja e vá no menu Sistema->Configurações, selecione a loja e clique no link "Editar", depois clique na aba "Opções", e no campo "Modo Catálogo:" selecione a opção Sim, depois clique no botão "Salvar".
 
 ### Como contribuir
