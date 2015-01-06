@@ -1,81 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
 <modification>
-	<id>Modo Catálogo para OpenCart 1.5.3.1</id>
-	<version>1.0.0</version>
-	<vqmver>2.1.5</vqmver>
-    <author>www.opencartbrasil.com.br</author>
+      <name>Modo Catálogo para OpenCart 2.0</name>
+      <version>1.0.0</version>
+      <code>modo-catalogo</coder>
+      <author>opencartbrasil / Sincromaster</author>
+      <link>www.opencartbrasil.com.br</link>
+
 	
-	<file name="admin/controller/setting/setting.php">
-		<operation error="skip">
-			<search position="after"><![CDATA[$this->data['entry_google_analytics'] = $this->language->get('entry_google_analytics');]]></search>
-			<add><![CDATA[
-		$this->data['entry_catalog_mode'] = $this->language->get('entry_catalog_mode');]]></add>
+	<file path="admin/controller/setting/setting.php">
+		<operation>
+			<search><![CDATA[$data['entry_google_analytics'] = $this->language->get('entry_google_analytics');]]></search>
+			<add  position="after"><![CDATA[
+		$data['entry_catalog_mode'] = $this->language->get('entry_catalog_mode');]]></add>
 		</operation>
-		<operation error="skip">
-			<search position="after" offset="1"><![CDATA[$this->data['config_customer_price'] = $this->config->get('config_customer_price');]]></search>
-			<add><![CDATA[
+		<operation>
+			<search><![CDATA[$data['config_customer_price'] = $this->config->get('config_customer_price');]]></search>
+			<add  position="after" offset="1"><![CDATA[
 		if (isset($this->request->post['config_catalog_mode'])) {
-			$this->data['config_catalog_mode'] = $this->request->post['config_catalog_mode'];
+			$data['config_catalog_mode'] = $this->request->post['config_catalog_mode'];
 		} else {
-			$this->data['config_catalog_mode'] = $this->config->get('config_catalog_mode');			
+			$data['config_catalog_mode'] = $this->config->get('config_catalog_mode');			
 		}]]></add>
 		</operation>
 	</file>
 	
-	<file name="admin/controller/setting/store.php">
-		<operation error="skip">
-			<search position="after"><![CDATA[$this->data['entry_use_ssl'] = $this->language->get('entry_use_ssl');]]></search>
-			<add><![CDATA[
-		$this->data['entry_catalog_mode'] = $this->language->get('entry_catalog_mode');]]></add>
+	<file path="admin/controller/setting/store.php">
+		<operation>
+			<search><![CDATA[$data['entry_use_ssl'] = $this->language->get('entry_use_ssl');]]></search>
+			<add  position="after"><![CDATA[
+		$data['entry_catalog_mode'] = $this->language->get('entry_catalog_mode');]]></add>
 		</operation>
-		<operation error="skip">
-			<search position="after" offset="1"><![CDATA[$this->data['config_customer_price'] = '';]]></search>
-			<add><![CDATA[
+		<operation>
+			<search><![CDATA[$data['config_customer_price'] = '';]]></search>
+			<add  position="after" offset="1"><![CDATA[
 		if (isset($this->request->post['config_catalog_mode'])) {
-			$this->data['config_catalog_mode'] = $this->request->post['config_catalog_mode'];
+			$data['config_catalog_mode'] = $this->request->post['config_catalog_mode'];
 		} elseif (isset($store_info['config_catalog_mode'])) {
-			$this->data['config_catalog_mode'] = $store_info['config_catalog_mode'];
+			$data['config_catalog_mode'] = $store_info['config_catalog_mode'];
 		} else {
-			$this->data['config_catalog_mode'] = '';
+			$data['config_catalog_mode'] = '';
 		}]]></add>
 		</operation>
 	</file>
 	
-	<file name="admin/language/english/setting/setting.php">
-		<operation error="skip">
-			<search position="before"><![CDATA[?>]]></search>
-			<add><![CDATA[
+	<file path="admin/language/english/setting/setting.php">
+		<operation>
+			<search><![CDATA[?>]]></search>
+			<add  position="before"><![CDATA[
 $_['entry_catalog_mode']        = 'Catalog Mode:<br /><span class="help">Disables Add To Cart, Checkout, Account, Reward Points, and other sections of the cart related to placing online sales</span>';]]></add>
 		</operation>
 	</file>
 	
 	<file name="admin/language/english/setting/store.php">
-		<operation error="skip">
-			<search position="before"><![CDATA[?>]]></search>
-			<add><![CDATA[
+		<operation>
+			<search><![CDATA[?>]]></search>
+			<add  position="before"><![CDATA[
 $_['entry_catalog_mode']        = 'Catalog Mode:<br /><span class="help">Disables Add To Cart, Checkout, Account, Reward Points, and other sections of the cart related to placing online sales</span>';]]></add>
 		</operation>
 	</file>
 
-	<file name="admin/language/portuguese-br/setting/setting.php">
-		<operation error="skip">
-			<search position="before"><![CDATA[?>]]></search>
-			<add><![CDATA[
+	<file path="admin/language/portuguese-br/setting/setting.php">
+		<operation>
+			<search><![CDATA[?>]]></search>
+			<add  position="before"><![CDATA[
 $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desabilita o Carrinho, Finalizar Compra, Minha Conta, Pontos de Fidelidade, Lista de Desejos, e outras áreas relacionadas com a compra.</span>';]]></add>
 		</operation>
 	</file>
 	
-	<file name="admin/language/portuguese-br/setting/store.php">
-		<operation error="skip">
-			<search position="before"><![CDATA[?>]]></search>
-			<add><![CDATA[
+	<file path="admin/language/portuguese-br/setting/store.php">
+		<operation>
+			<search><![CDATA[?>]]></search>
+			<add  position="before"><![CDATA[
 $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desabilita o Carrinho, Finalizar Compra, Minha Conta, Pontos de Fidelidade, Lista de Desejos, e outras áreas relacionadas com a compra.</span>';]]></add>
 		</operation>
 	</file>
 	
-	<file name="admin/view/template/setting/setting.tpl">
+	<file path="admin/view/template/setting/setting.tpl">
 		<operation error="skip">
-			<search position="after" offset="2"><![CDATA[<span class="error"><?php echo $error_admin_limit; ?></span>]]></search>
-			<add><![CDATA[<tr>
+			<search><![CDATA[<span class="error"><?php echo $error_admin_limit; ?></span>]]></search>
+			<add  position="after" offset="2"><![CDATA[<tr>
               <td><?php echo $entry_catalog_mode; ?></td>
               <td><?php if ($config_catalog_mode) { ?>
                 <input type="radio" name="config_catalog_mode" value="1" checked="checked" />
@@ -93,7 +96,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="admin/view/template/setting/store_form.tpl">
+	<file path="admin/view/template/setting/store_form.tpl">
 		<operation error="skip">
 			<search position="after" offset="2"><![CDATA[<span class="error"><?php echo $error_catalog_limit; ?></span>]]></search>
 			<add><![CDATA[<tr>
@@ -114,7 +117,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/account/forgotten.php">
+	<file path="catalog/controller/account/forgotten.php">
 		<operation error="skip">
 			<search position="after"><![CDATA[public function index() {]]></search>
 			<add><![CDATA[
@@ -124,7 +127,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/account/login.php">
+	<file path="catalog/controller/account/login.php">
 		<operation error="skip">
 			<search position="after" offset="3"><![CDATA[if ($customer_info && $this->customer->login($customer_info['email'], '', true)) {]]></search>
 			<add><![CDATA[
@@ -134,7 +137,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/account/register.php">
+	<file path="catalog/controller/account/register.php">
 		<operation error="skip">
 			<search position="after"><![CDATA[public function index() {]]></search>
 			<add><![CDATA[
@@ -144,7 +147,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/account/wishlist.php">
+	<file path="catalog/controller/account/wishlist.php">
 		<operation error="skip">
 			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
 			<add><![CDATA[
@@ -156,7 +159,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/affiliate/forgotten.php">
+	<file path="catalog/controller/affiliate/forgotten.php">
 		<operation error="skip">
 			<search position="after"><![CDATA[public function index() {]]></search>
 			<add><![CDATA[
@@ -166,7 +169,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/affiliate/login.php">
+	<file path="catalog/controller/affiliate/login.php">
 		<operation error="skip">
 			<search position="after"><![CDATA[public function index() {]]></search>
 			<add><![CDATA[
@@ -176,7 +179,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/checkout/cart.php">
+	<file path="catalog/controller/checkout/cart.php">
 		<operation error="skip">
 			<search position="after"><![CDATA[public function index() {]]></search>
 			<add><![CDATA[
@@ -186,7 +189,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/common/footer.php">
+	<file path="catalog/controller/common/footer.php">
 		<operation error="skip">
 			<search position="after"><![CDATA[$this->data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));]]></search>
 			<add><![CDATA[
@@ -198,7 +201,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/common/header.php">
+	<file path="catalog/controller/common/header.php">
 		<operation error="skip">
 			<search position="before" offset="3"><![CDATA[$this->data['categories'] = array();]]></search>
 			<add><![CDATA[
@@ -210,7 +213,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/information/sitemap.php">
+	<file path="catalog/controller/information/sitemap.php">
 		<operation error="skip">
 			<search position="after" offset="1"><![CDATA[$this->data['categories'] = array();]]></search>
 			<add><![CDATA[
@@ -222,7 +225,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/module/bestseller.php">
+	<file path="catalog/controller/module/bestseller.php">
 		<operation error="skip">
 			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
 			<add><![CDATA[
@@ -234,7 +237,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/module/featured.php">
+	<file path="catalog/controller/module/featured.php">
 		<operation error="skip">
 			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
 			<add><![CDATA[
@@ -246,7 +249,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/module/latest.php">
+	<file path="catalog/controller/module/latest.php">
 		<operation error="skip">
 			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
 			<add><![CDATA[
@@ -258,7 +261,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/module/special.php">
+	<file path="catalog/controller/module/special.php">
 		<operation error="skip">
 			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
 			<add><![CDATA[
@@ -270,7 +273,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/product/category.php">
+	<file path="catalog/controller/product/category.php">
 		<operation error="skip">
 			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
 			<add><![CDATA[
@@ -282,7 +285,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/product/compare.php">
+	<file path="catalog/controller/product/compare.php">
 		<operation error="skip">
 			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
 			<add><![CDATA[
@@ -294,7 +297,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/product/manufacturer.php">
+	<file path="catalog/controller/product/manufacturer.php">
 		<operation error="skip">
 			<search position="before"><![CDATA[$this->data['products'] = array();]]></search>
 			<add><![CDATA[
@@ -311,7 +314,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/product/product.php">
+	<file path="catalog/controller/product/product.php">
 		<operation error="skip">
 			<search position="after"><![CDATA[$this->data['text_tags'] = $this->language->get('text_tags');]]></search>
 			<add><![CDATA[			$this->data['text_choose_one'] = $this->language->get('text_choose_one');
@@ -328,7 +331,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/product/search.php">
+	<file path="catalog/controller/product/search.php">
 		<operation error="skip">
 			<search position="after" offset="2"><![CDATA['children'    => $level_2_data]]></search>
 			<add><![CDATA[
@@ -340,7 +343,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/controller/product/special.php">
+	<file path="catalog/controller/product/special.php">
 		<operation error="skip">
 			<search position="after" offset="1"><![CDATA[$price = false;]]></search>
 			<add><![CDATA[
@@ -352,7 +355,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/common/footer.tpl">
+	<file path="catalog/view/theme/*/template/common/footer.tpl">
 		<operation error="skip">
 			<search position="replace"><![CDATA[<li><a href="<?php echo $return; ?>"><?php echo $text_return; ?></a></li>]]></search>
 			<add><![CDATA[<?php if (!$catalog_mode) { ?><li><a href="<?php echo $return; ?>"><?php echo $text_return; ?></a></li><?php } ?>]]></add>
@@ -375,7 +378,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/common/header.tpl">
+	<file path="catalog/view/theme/*/template/common/header.tpl">
 		<operation error="skip">
 			<search position="before"><![CDATA[<?php echo $cart; ?>]]></search>
 			<add><![CDATA[  <?php if (!$catalog_mode) { ?>]]></add>
@@ -403,7 +406,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/information/sitemap.tpl">
+	<file path="catalog/view/theme/*/template/information/sitemap.tpl">
 		<operation error="skip">
 			<search position="after"><![CDATA[<li><a href="<?php echo $special; ?>"><?php echo $text_special; ?></a></li>]]></search>
 			<add><![CDATA[        <?php if (!$catalog_mode) { ?>]]></add>
@@ -414,7 +417,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/module/bestseller.tpl">
+	<file path="catalog/view/theme/*/template/module/bestseller.tpl">
 		<operation error="skip">
 			<search position="before"><![CDATA[<div class="cart"><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></div>]]></search>
 			<add><![CDATA[
@@ -427,7 +430,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/module/featured.tpl">
+	<file path="catalog/view/theme/*/template/module/featured.tpl">
 		<operation error="skip">
 			<search position="before"><![CDATA[<div class="cart"><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></div>]]></search>
 			<add><![CDATA[
@@ -440,7 +443,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/module/latest.tpl">
+	<file path="catalog/view/theme/*/template/module/latest.tpl">
 		<operation error="skip">
 			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
 			<add><![CDATA[
@@ -453,7 +456,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/module/special.tpl">
+	<file path="catalog/view/theme/*/template/module/special.tpl">
 		<operation error="skip">
 			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
 			<add><![CDATA[
@@ -466,7 +469,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 
-	<file name="catalog/view/theme/*/template/product/category.tpl">
+	<file path="catalog/view/theme/*/template/product/category.tpl">
 		<operation error="skip">
 			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
 			<add><![CDATA[	  <?php if (!$catalog_mode) { ?>]]></add>
@@ -509,7 +512,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/product/compare.tpl">
+	<file path="catalog/view/theme/*/template/product/compare.tpl">
 		<operation error="skip">
 			<search position="before"><![CDATA[<td><input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" /></td>]]></search>
 			<add><![CDATA[    <?php if (!$catalog_mode) { ?>]]></add>
@@ -520,7 +523,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/product/manufacturer_info.tpl">
+	<file path="catalog/view/theme/*/template/product/manufacturer_info.tpl">
 		<operation error="skip">
 			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
 			<add><![CDATA[      <?php if (!$catalog_mode) { ?>]]></add>
@@ -563,7 +566,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/product/search.tpl">
+	<file path="catalog/view/theme/*/template/product/search.tpl">
 		<operation error="skip">
 			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
 			<add><![CDATA[      <?php if (!$catalog_mode) { ?>]]></add>
@@ -606,7 +609,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/product/special.tpl">
+	<file path="catalog/view/theme/*/template/product/special.tpl">
 		<operation error="skip">
 			<search position="after" offset="2"><![CDATA[<?php if ($product['rating']) { ?>]]></search>
 			<add><![CDATA[      <?php if (!$catalog_mode) { ?>]]></add>
@@ -649,7 +652,7 @@ $_['entry_catalog_mode']        = 'Modo Catálogo:<br /><span class="help">Desab
 		</operation>
 	</file>
 	
-	<file name="catalog/view/theme/*/template/product/product.tpl">
+	<file path="catalog/view/theme/*/template/product/product.tpl">
 		<operation error="skip">
 			<search position="replace"><![CDATA[<span><?php echo $text_reward; ?></span> <?php echo $reward; ?><br />]]></search>
 			<add><![CDATA[<?php if (!$catalog_mode) { ?><span><?php echo $text_reward; ?></span> <?php echo $reward; ?><br /><?php } ?>]]></add>
