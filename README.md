@@ -1,10 +1,10 @@
 ### Compatibilidade
 
- Opencart 1.5.3.1.
+ Opencart 2.0
 
 ### Requisitos
 
- vQmod 2.1.6 ou superior.
+ Opencart 2.0 ou superior.
 
 ### Limitações
 
