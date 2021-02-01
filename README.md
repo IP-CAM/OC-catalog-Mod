@@ -1,30 +1,31 @@
-### Compatibilidade
+### Compatibility
 
  Opencart 2.0
 
-### Requisitos
+### Requirements
 
- Opencart 2.0 ou superior.
+ Opencart 2.0 or higher.
 
-### Limitações
+### Limitations
 
- Desenvolvido para o tema default (padrão) do OpenCart.
+ Developed for the OpenCart default theme.
 
-### Funcionalidades
+### Functionalities
 
- 1. Desabilitar o carrinho de compras, o botão de comprar, a lista de desejos, os pontos de fidelidade, o menu minha conta, a finalização do pedido, o vale presentes, o programa de afiliados e outros processos e páginas ligadas a compra.
+ 1. Disable the shopping cart, the buy button, the wish list, the loyalty points, the my account menu, the checkout, the gift certificate, the affiliate program and other processes and pages linked to the purchase.
 
-### Instruções
+### Instructions
 
- 1. Envie os arquivos do módulo para o diretório raiz da sua loja.
- 2. Acesse a administração da sua loja e vá no menu Sistema->Configurações, selecione a loja e clique no link "Editar", depois clique na aba "Opções", e no campo "Modo Catálogo:" selecione a opção Sim, depois clique no botão "Salvar".
+ 1. Upload the module files to your store's root directory.
+ 2. Access the administration of your store and go to the System-> Settings menu, select the store and click on the "Edit" link, then click on the "Options" tab, and in the "Catalog Mode:" field, select the Yes option, then click the "Save" button.
 
-### Como contribuir
+### How to contribute
 
- 1. Faça um Fork do projeto e edite os arquivos que desejar.
- 2. Faça um Pull para que suas sugestões de melhorias sejam avaliadas e aceitas, caso aprovadas.
+ 1. Fork the project and edit the files you want.
+ 2. Make a Pull so that your suggestions for improvements are evaluated and accepted, if approved.
 
-### Licença
+### License
 
-Mantido e revisado pela comunidade OpenCart Brasil.
-[GNU General Public License version 3 (GPLv3)](https://github.com/opencartbrasil/traducao/blob/master/LICENSE)
+Maintained and reviewed by the OpenCart Brasil community.
+[GNU General Public License version 3 (GPLv3)] 
+(https://github.com/opencartbrasil/traducao/blob/master/LICENSE)
